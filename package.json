@@ -1,0 +1,31 @@
+{
+  "name": "solace-ep-config-push",
+  "version": "0.0.1",
+  "description": "Github action to push Applicaiton configuration from  Event Portal to Solace PubSub+ Event Portal",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build index.js --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SolaceDev/solace-ep-config-push.git"
+  },
+  "keywords": [
+    "solace",
+    "event",
+    "portal",
+    "provisioning"
+  ],
+  "author": "tamimi@solace.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SolaceDev/solace-ep-config-push/issues"
+  },
+  "homepage": "https://github.com/SolaceDev/solace-ep-config-push#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@vercel/ncc": "^0.38.1",
+    "axios": "^1.6.8"
+  }
+}

@@ -1,0 +1,28 @@
+name: 'Solace Event Portal Configuration Push'
+description: 'Push applications configuration from Event Portal to Solace PubSub+ Event Broker'
+branding:
+  icon: 'download-cloud'
+  color: 'green'
+inputs:
+  SOLACE_CLOUD_TOKEN:
+    description: 'SOLACE_CLOUD_TOKEN'
+    required: false
+  APPLICATION_VERSION_ID:
+    description: 'The application version ID to be promoted'
+    required: true
+    default: "none"
+  EVENT_MESH_NAME:
+    description: 'The event mesh name'
+    required: true
+    default: "none"
+  PREVIEW_ONLY:
+    description: 'Only run the configuration deployment preview'
+    required: false
+    default: "false"
+outputs:
+  deployment_plan: 
+    description: 'Application Deployment Plan Preview'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+
