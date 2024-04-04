@@ -13,6 +13,7 @@ This github action facilitates configuration push of applications from Event Por
   | `APPLICATION_VERSION_ID`  | Required  | Application Version ID to promote | NA |
   | `EVENT_MESH_NAME`  | Required  | The target Event Mesh to Promote to | NA |
   | `PREVIEW_ONLY`  | Optional  | Preview Application Deployment Plan | false |
+  | `ACTION`  | Optional  | `deploy` or `undeploy` | deploy |
 
 ## Example usage
 

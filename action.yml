@@ -19,6 +19,10 @@ inputs:
     description: 'Only run the configuration deployment preview'
     required: false
     default: "false"
+  ACTION:
+    description: 'The action to be performed ON the application: deploy vs undeploy '
+    required: false
+    default: "deploy"
 outputs:
   deployment_plan: 
     description: 'Application Deployment Plan Preview'

@@ -8,6 +8,7 @@ async function configPush() {
     const APPLICATION_VERSION_ID = core.getInput('APPLICATION_VERSION_ID')
     const EVENT_MESH_NAME = core.getInput('EVENT_MESH_NAME')
     const PREVIEW_ONLY = core.getInput('PREVIEW_ONLY')
+    const ACTION = core.getInput('ACTION').toLowerCase()
 
     // Get event mesh object
     let {data: mesh} = await ep.getEventMeshes({
@@ -22,17 +23,18 @@ async function configPush() {
     // Get Preview Application Deployment Plan
     if (PREVIEW_ONLY != "false") {
       let plan = await ep.getApplicationDeploymentPlan({
+        action: ACTION,
         applicationVersionId: APPLICATION_VERSION_ID,
         eventBrokerId: messagingService[0].id
       })
       core.setOutput("deployment_plan", JSON.stringify(plan, null, 2));
     } else {
       // Create Application Deployment 
-      let deployment_result = await ep.createApplicationDeployment({
+      await ep.createApplicationDeployment({
+        action: ACTION,
         applicationVersionId: APPLICATION_VERSION_ID,
-        eventBrokerId: [messagingService[0].id]
+        eventBrokerId: messagingService[0].id
       })
-      core.setOutput("deployment_plan", JSON.stringify(deployment_result, null, 2));
     }
   } catch (error) {
     core.setFailed(error.message);

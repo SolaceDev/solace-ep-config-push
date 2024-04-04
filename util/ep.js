@@ -219,12 +219,13 @@ class EventPortal {
    async getApplicationDeploymentPlan({
     applicationVersionId = null,
     eventBrokerId = null,
+    action = null
   } = {} ) {
     try{
-      if (applicationVersionId == null | eventBrokerId == null) throw new Error("Application Version ID AND Event Broker IDs must be defined")
+      if (applicationVersionId == null | eventBrokerId == null | action == null) throw new Error("Application Version ID, Action, AND Event Broker IDs must be defined")
       let params = {}
       let data = {
-        action: "deploy",
+        action: action,
         applicationVersionId: applicationVersionId,
         eventBrokerId: eventBrokerId
       }
@@ -240,12 +241,13 @@ class EventPortal {
    async createApplicationDeployment({
     applicationVersionId = null,
     eventBrokerId = null,
+    action = null
   } = {} ) {
     try{
-      if (applicationVersionId == null | eventBrokerId == null) throw new Error("Application Version ID AND Event Broker IDs must be defined")
+      if (applicationVersionId == null | eventBrokerId == null | action == null) throw new Error("Application Version ID, Action, AND Event Broker IDs must be defined")
       let params = {}
       let data = {
-        action: "deploy",
+        action: action,
         applicationVersionId: applicationVersionId,
         eventBrokerId: eventBrokerId
       }
