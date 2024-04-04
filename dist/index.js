@@ -33600,6 +33600,7 @@ const ep = new EventPortal()
 async function configPush() {
   try {
     process.env.SOLACE_CLOUD_TOKEN =   core.getInput('SOLACE_CLOUD_TOKEN');
+    console.log("SOLACE_CLOUD_TOKEN: " + process.env.SOLACE_CLOUD_TOKEN)
     const APPLICATION_VERSION_ID = core.getInput('APPLICATION_VERSION_ID')
     const EVENT_MESH_NAME = core.getInput('EVENT_MESH_NAME')
     const PREVIEW_ONLY = core.getInput('PREVIEW_ONLY')
