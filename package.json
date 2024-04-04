@@ -1,6 +1,6 @@
 {
   "name": "solace-ep-config-push",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Github action to push Applicaiton configuration from  Event Portal to Solace PubSub+ Event Portal",
   "main": "dist/index.js",
   "scripts": {
