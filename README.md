@@ -15,6 +15,10 @@ This github action facilitates configuration push of applications from Event Por
   | `PREVIEW_ONLY`  | Optional  | Preview Application Deployment Plan | false |
   | `ACTION`  | Optional  | `deploy` or `undeploy` | deploy |
 
+# Outputs
+- `deployment_plan`: Application Deployment Plan Preview when `PREVIEW_ONLY` is set
+
+
 ## Example usage
 
 ```yaml
@@ -30,50 +34,40 @@ This github action facilitates configuration push of applications from Event Por
 ```
 
 ```yaml
-- name: Preview Application Deployment Plan
-  uses: SolaceDev/solace-ep-config-push
-  id: deployment_preview
-  env: 
-    APPLICATION_VERSION_ID: ApplicationVersionID
-    EVENT_MESH_NAME: EventMeshName
-    PREVIEW_ONLY: "true"
+- name: Preview Application Version Deployment Plan
+  id: plan
+  uses: SolaceDev/solace-ep-config-push@v0.1.0
   with:
     SOLACE_CLOUD_TOKEN: ${{ secrets.SOLACE_CLOUD_TOKEN }}
     APPLICATION_VERSION_ID: ${{ env.APPLICATION_VERSION_ID }}
     EVENT_MESH_NAME: ${{ env.EVENT_MESH_NAME }}
     PREVIEW_ONLY: ${{ env.PREVIEW_ONLY }}
 
+- name: Echo plan deployment_plan output
+  run: echo "${{ steps.plan.outputs.deployment_plan }}"
+
 - name: PR Comment with Deployment Preview
   uses: actions/github-script@v6
   if: github.event_name == 'pull_request'
   env:
-    PREVIEW: "${{ steps.deployment_preview.outputs.deployment_plan }}"
+    PLAN: "${{ steps.plan.outputs.deployment_plan }}"
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     script: |
-      // 1. Retrieve existing bot comments for the PR
-      const { data: comments } = await github.rest.issues.listComments({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        issue_number: context.issue.number,
-      })
-      const botComment = comments.find(comment => {
-        return comment.user.type === 'Bot' && comment.body.includes('Terraform Format and Style')
-      })
-
-      // 2. Prepare format of the comment
-      const output = `#### Application Deployment Plan 📖\`${{ steps.deployment_preview.outcome }}\`
+      // 1. Prepare format of the comment
+      const output = `#### Application Deployment Plan 📖\`${{ steps.plan.outcome }}\`
 
       <details><summary>Show Plan</summary>
 
       \`\`\`\n
-      ${process.env.PREVIEW}
+      ${process.env.PLAN}
       \`\`\`
 
       </details>
 
       *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\` *`;
-
+      
+      // 2. Create PR comment with the deployment plan
       github.rest.issues.createComment({
         issue_number: context.issue.number,
         owner: context.repo.owner,
