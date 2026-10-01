@@ -16,7 +16,7 @@ jobs:
 
       - name: 'Automated Version Bump'
         id: version-bump
-        uses: 'phips28/gh-action-bump-version@master'
+        uses: 'phips28/gh-action-bump-version@63bc5b97aade4390bf3f33416b8adb891a0f28d7' # master
         with:
           tag-prefix: 'v'
         env:
